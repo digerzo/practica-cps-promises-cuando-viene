@@ -21,8 +21,8 @@ function make_url(host, port) {
 }
 
 var monitor = function () {
-
 };
+
 var get_timeout = require("./get");
 
 
@@ -39,7 +39,7 @@ app.route('/get_next_bus/').get(function (req, res) {
         }
     }, 2000, function (err, body) {
         if (err) {
-            res.send(408);
+            res.sendStatus(408);
             return;
         }
         report_to_client(cliente, body.next_bus_time)
@@ -61,7 +61,7 @@ app.route('/line_status/').get(function (req, res) {
 
     get_timeout(supervisor_address + "/line_status/", 2000, function (err, body) {
         if (err) {
-            res.send(408);
+            res.sendStatus(408);
             return;
         }
         response.json({'status': body.status})
