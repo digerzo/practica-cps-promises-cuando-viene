@@ -15,6 +15,10 @@ var SupervisorClient = require('./node_supervisor_client');
 
 colored_console.log_info("Servidor de Recorridos. v.0.5");
 
+function make_url(host, port) {
+    return host + ':' + port;
+}
+
 //State
 
 var lines = {1: {'line_desc': 'Linea 1', 'status': 1},

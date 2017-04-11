@@ -16,7 +16,11 @@ var app = express()
 var bodyParser = require('body-parser')
 var SupervisorClient = require('./node_supervisor_client')
 
-var monitor = function() {
+function make_url(host, port) {
+    return host + ':' + port;
+}
+
+var monitor = function () {
 
 };
 var get_timeout = require("./get");
@@ -26,26 +30,37 @@ app.route('/status').get(function (req, res) {
     res.json({status: 'status'})
 });
 
-app.route('/get_next_bus/').get(function (req, res){
-    var response = res;
+app.route('/get_next_bus/').get(function (req, res) {
 
-    get_timeout(journey_address+"/next_bus/", 2000, function(err, body){
-        if (err)
-        {
+    get_timeout(journey_address + "/next_bus/", {
+        parameters: {
+            line_id: req.line_id,
+            stop_id: req.stop_id
+        }
+    }, 2000, function (err, body) {
+        if (err) {
             res.send(408);
             return;
         }
-        response.json({'next_bus': body.next_bus_time})
+        report_to_client(cliente, body.next_bus_time)
     });
 
 });
 
-app.route('/line_status/').get(function(req, res){
+//TODO: el cliente falta aca...
+function report_to_client(cliente, next_bus_time){
+    client.get(cliente + '/proximo_bus', {
+        parameters: {
+            'next_bus': next_bus_time
+        }
+    }, function(){console.log('Se envio el estado al cliente')});
+}
+
+app.route('/line_status/').get(function (req, res) {
     var response = res;
 
-    get_timeout(supervisor_address+"/line_status/", 2000, function(err, body){
-        if (err)
-        {
+    get_timeout(supervisor_address + "/line_status/", 2000, function (err, body) {
+        if (err) {
             res.send(408);
             return;
         }
@@ -58,7 +73,7 @@ app.route('/line_status/').get(function(req, res){
 // Heartbeat
 
 app.route('/heartbeat').get(function (req, res) {
-        res.json({status: 'ok'})
+    res.json({status: 'ok'})
 });
 
 
@@ -70,10 +85,10 @@ var server = app.listen(port, function () {
     var suffix = 'Empezando servidor en el puerto ' + server.address().port
 
     console.log(suffix)
-    supervisorClient.register().finally(function() {
+    supervisorClient.register().finally(function () {
         if (!supervisorClient.isOnline()) {
             console.log('Trabajando sin supervisor por ahora...')
-        } else{
+        } else {
             console.log('Trabajando con el supervisor...')
         }
 
