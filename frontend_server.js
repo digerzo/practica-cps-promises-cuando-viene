@@ -51,7 +51,6 @@ app.route('/line_status/').get(function (req, res) {
 var server = app.listen(port, function () {
 
     console.log("Initializing node in port " + server.address().port + "....");
-    var supervisorClient = new SupervisorClient(address, monitor);
 
     var suffix = 'Empezando servidor en el puerto ' + server.address().port;
 
