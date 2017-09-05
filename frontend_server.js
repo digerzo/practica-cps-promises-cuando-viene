@@ -4,18 +4,15 @@ var Promise = require('bluebird');
 
 var host = 'http://localhost';
 var port = 3000;
-var supervisor_port = 4040;
 var journey_port = 3002;
 
 var address = make_url(host, port);
 
 var journey_address = make_url(host, journey_port);
-var supervisor_address = make_url(host, supervisor_port);
 
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var SupervisorClient = require('./node_supervisor_client');
 
 function make_url(host, port) {
     return host + ':' + port;
@@ -64,14 +61,6 @@ app.route('/line_status/').get(function (req, res) {
 });
 
 
-//
-// Heartbeat
-
-app.route('/heartbeat').get(function (req, res) {
-    res.json({status: 'ok'})
-});
-
-
 var server = app.listen(port, function () {
 
     colored_console.log_info("Initializing node in port " + server.address().port + "....");
@@ -80,14 +69,6 @@ var server = app.listen(port, function () {
     var suffix = 'Empezando servidor en el puerto ' + server.address().port;
 
     console.log(suffix);
-    supervisorClient.register().finally(function () {
-        if (!supervisorClient.isOnline()) {
-            console.log('Trabajando sin supervisor por ahora...')
-        } else {
-            console.log('Trabajando con el supervisor...')
-        }
-
-    });
 
     return server;
 });

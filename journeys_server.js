@@ -4,7 +4,6 @@ var r = require('./request_wrapper.js');
 var schedule = require('node-schedule');
 var host = 'http://localhost';
 var port = 3002;
-var supervisor_port = 4040;
 var Promise = require('bluebird');
 
 var address = make_url(host, port);
@@ -12,7 +11,6 @@ var address = make_url(host, port);
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var SupervisorClient = require('./node_supervisor_client');
 
 colored_console.log_info("Servidor de Recorridos. v.0.5");
 
@@ -39,9 +37,7 @@ var stops = {
 
 app.route('/line_status').get(function (req, res) {
     var line_id = req.query.line_id;
-
-    // throw new Error;
-
+    
     var line_status = lines[line_id]['status'];
     res.json({status: line_status})
 });
@@ -64,14 +60,6 @@ app.route('/next_bus').get(function (req, res) {
 
 app.route('/status').get(function (req, res) {
     res.json({status: 'online'})
-});
-
-
-//
-// Heartbeat
-
-app.route('/heartbeat').get(function (req, res) {
-    res.json({status: 'ok'})
 });
 
 //Cada 55 segundos actualizar el estado de las lineas
@@ -117,14 +105,6 @@ var server = app.listen(port, function () {
     var suffix = 'Empezando servidor de viajes en el puerto ' + server.address().port;
 
     console.log(suffix);
-    supervisorClient.register().finally(function () {
-        if (!supervisorClient.isOnline()) {
-            console.log('Trabajando sin supervisor por ahora...')
-        } else {
-            console.log('Trabajando con el supervisor...')
-        }
-
-    });
 
     return server;
 });
