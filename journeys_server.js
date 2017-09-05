@@ -1,5 +1,4 @@
 //Este es el servidor con los recorridos
-var colored_console = require('./colored_console.js');
 var r = require('./request_wrapper.js');
 var schedule = require('node-schedule');
 var host = 'http://localhost';
@@ -12,7 +11,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-colored_console.log_info("Servidor de Recorridos. v.0.5");
+console.log("Servidor de Recorridos. v.0.5");
 
 function make_url(host, port) {
     return host + ':' + port;
@@ -53,7 +52,7 @@ app.route('/next_bus').get(function (req, res) {
             } else {
                 res.json({error: "Invalid stop or bus line"})
             }
-        }, 1500);
+        }, 0);
     }).then();
 
 });
@@ -64,21 +63,21 @@ app.route('/status').get(function (req, res) {
 
 //Cada 55 segundos actualizar el estado de las lineas
 schedule.scheduleJob('*/55 * * * * *', function () {
-    colored_console.log_info("Novedades del estado de las lineas");
+    console.log("Novedades del estado de las lineas");
 
     for (var line in lines) {
         var rand = Math.random();
         lines[line]['status'] = ((rand > 0.5) ? 1 : 0)
     }
 
-    colored_console.log_info("Actualizacion del estado de las lineas finalizado.")
+    console.log("Actualizacion del estado de las lineas finalizado.")
 });
 
 var last_update = new Date();
 
 //Cada 30 segundos actualizar el estado de las estaciones
 schedule.scheduleJob('*/30 * * * * *', function () {
-    colored_console.log_info("Novedades de las estaciones");
+    console.log("Novedades de las estaciones");
 
     for (var stop in stops) {
         var _stop = stops[stop];
@@ -94,14 +93,11 @@ schedule.scheduleJob('*/30 * * * * *', function () {
 
         last_update = _now
     }
-    colored_console.log_info("Actualizacion del estado de las estaciones finalizado.")
+    console.log("Actualizacion del estado de las estaciones finalizado.")
 });
 
 
 var server = app.listen(port, function () {
-    var supervisorClient = new SupervisorClient(address, function () {
-    });
-
     var suffix = 'Empezando servidor de viajes en el puerto ' + server.address().port;
 
     console.log(suffix);

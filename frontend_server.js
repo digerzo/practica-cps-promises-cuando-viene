@@ -1,4 +1,3 @@
-var colored_console = require('./colored_console.js');
 var r = require('./request_wrapper.js');
 var Promise = require('bluebird');
 
@@ -35,35 +34,23 @@ app.route('/get_next_bus/').get(function (req, res) {
             stop_id: req.query.stop_id
         }
         , 2000)
-        .then(function (body) {
-            res.json(body);
-        })
-        .catch(Promise.TimeoutError, function (e) {
-            res.send(e.toString());
-        });
+        .then()
 
 });
 
 app.route('/line_status/').get(function (req, res) {
-    var response = res;
-
     get_timeout(journey_address + "/line_status/"
         , {
             line_id: req.query.line_id
         }
         , 2000)
-        .then(function (body) {
-            response.json({'status': body.status});
-        })
-        .catch(function(err){
-            response.send("Line: " + req.query.line_id + " does not exist.");
-        });
+        .then();
 });
 
 
 var server = app.listen(port, function () {
 
-    colored_console.log_info("Initializing node in port " + server.address().port + "....");
+    console.log("Initializing node in port " + server.address().port + "....");
     var supervisorClient = new SupervisorClient(address, monitor);
 
     var suffix = 'Empezando servidor en el puerto ' + server.address().port;
