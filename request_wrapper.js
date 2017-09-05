@@ -1,5 +1,5 @@
-var request = require('request-promise')
-var Promise = require('bluebird')
+var request = require('request-promise');
+var Promise = require('bluebird');
 
 var send = function (uri, params, method) {
     return request({
@@ -8,9 +8,9 @@ var send = function (uri, params, method) {
         uri: uri,
         body: params
     })
-}
+};
 
-var connectionRefuseCode = 'ECONNREFUSED'
+var connectionRefuseCode = 'ECONNREFUSED';
 
 var wrapper = {
     get: function (uri, queryString) {
@@ -29,10 +29,10 @@ var wrapper = {
         return send(uri, params, 'DELETE')
     },
     heartbeat: function (uri, time) {
-        var deferred = Promise.pending()
+        var deferred = Promise.pending();
         var delayedBeat = function () {
             setTimeout(sendBeat, time)
-        }
+        };
 
         var sendBeat = function () {
             this.get(uri).then(delayedBeat).catch(function (error) {
@@ -42,9 +42,9 @@ var wrapper = {
                     delayedBeat()
                 }
             })
-        }.bind(this)
+        }.bind(this);
 
-        delayedBeat()
+        delayedBeat();
 
         return deferred.promise
     },
@@ -53,6 +53,6 @@ var wrapper = {
         return response && response.name === 'RequestError' &&
             response.cause && response.cause.code === connectionRefuseCode
     }
-}
+};
 
-module.exports = wrapper
+module.exports = wrapper;

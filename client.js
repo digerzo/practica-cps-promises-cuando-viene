@@ -41,8 +41,3 @@ function produce(status) {
         }
     }, function(){ console.log('Se envio la solicitud al servidor')});
 }
-
-
-app.get('/proximo_bus', function(req, res) {
-    console.log(('Proximo Colectivo: '+ req.next_bus+' sec.').gray);
-});

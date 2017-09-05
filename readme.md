@@ -28,4 +28,4 @@ Se pide:
 - Detectar errores de espera, o de funcionamiento no esperado
 - Mejorar el código en algunos lados del servidor
 - Ver si la arquitectura es la adecuada, que sucede si se cae un servidor
-- Si se opta por usar el supervidor, ver de que se use adecuadamente.
+- Si se opta por usar el supervisor, ver de que se use adecuadamente.
