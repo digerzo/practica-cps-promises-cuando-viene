@@ -22,10 +22,6 @@ var monitor = function () {
 };
 var get_timeout = require("./get");
 
-app.route('/status').get(function (req, res) {
-    res.json({status: 'status'})
-});
-
 app.route('/get_next_bus/').get(function (req, res) {
 
     get_timeout(journey_address + "/next_bus/"
