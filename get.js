@@ -1,5 +1,6 @@
-"use strict";
-
+//
+// Pequeña biblioteca para realizar pedidos HTTP
+//
 var Client = require('node-rest-client').Client;
 var Promise = require('bluebird');
 

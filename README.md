@@ -21,7 +21,7 @@ El `journey_server` tiene este comportamiento:
 - Cada 30 segundos se actualiza el estado de cuando llegan los colectivos a destino
 - Cuando se hace la solicitud del servidor que da respuesta a los clientes y este servidor con el estado el tiempo de respuesta puede ser de hasta 5 segs.
 
-Además, ambos módulos utilizan `get.js` para realizar las conexiones HTTP.
+Además, `frontend_server` utiliza `get.js` para realizar las conexiones HTTP.
 
 ## Obetivo
 
