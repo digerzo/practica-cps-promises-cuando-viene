@@ -14,7 +14,7 @@ var app = express();
 var bodyParser = require('body-parser');
 
 function make_url(host, port) {
-    return host + ':' + port;
+  return host + ':' + port;
 }
 
 var monitor = function () {
@@ -23,34 +23,26 @@ var monitor = function () {
 var get_timeout = require("./get");
 
 app.route('/get_next_bus/').get(function (req, res) {
-
-    get_timeout(journey_address + "/next_bus/"
-        , {
-            line_id: req.query.line_id,
-            stop_id: req.query.stop_id
-        }
-        , 2000)
-        .then()
-
+  get_timeout(journey_address + "/next_bus/", {
+      line_id: req.query.line_id,
+      stop_id: req.query.stop_id
+    }, 2000).then();
 });
 
 app.route('/line_status/').get(function (req, res) {
-    get_timeout(journey_address + "/line_status/"
-        , {
-            line_id: req.query.line_id
-        }
-        , 2000)
-        .then();
+  get_timeout(journey_address + "/line_status/", {
+      line_id: req.query.line_id
+    }, 2000).then();
 });
 
 
 var server = app.listen(port, function () {
 
-    console.log("Initializing node in port " + server.address().port + "....");
+  console.log("Initializing node in port " + server.address().port + "....");
 
-    var suffix = 'Empezando servidor en el puerto ' + server.address().port;
+  var suffix = 'Empezando servidor en el puerto ' + server.address().port;
 
-    console.log(suffix);
+  console.log(suffix);
 
-    return server;
+  return server;
 });
