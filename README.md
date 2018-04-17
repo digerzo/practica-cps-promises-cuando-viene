@@ -30,7 +30,7 @@ Sin embargo, el código no está completo y presenta errores. Se pide:
 - Completar los servidores, detectar errores de control de flujo y corregirlos.
 - Mejorar la arquitectura:
    - Implementar manejo de errores
-   - Implementar timeouts en todos los endpoints
+   - Implementar timeouts de conexion en todos los endpoints
 
 ## Pasos Sugeridos
 
