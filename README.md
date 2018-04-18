@@ -19,7 +19,7 @@ El `journey_server` tiene este comportamiento:
 
 - Cada 55 segundos se actualizan el estado de las lineas
 - Cada 30 segundos se actualiza el estado de cuando llegan los colectivos a destino
-- Cuando se hace la solicitud del servidor que da respuesta a los clientes y este servidor con el estado el tiempo de respuesta puede ser de hasta 5 segs.
+- Cuando se hace la solicitud del servidor que da respuesta a los clientes, y este servidor solicita el estado de los buses, el tiempo de respuesta puede ser de hasta 5 segs.
 
 Además, `frontend_server` utiliza `get.js` para realizar las conexiones HTTP.
 
@@ -42,4 +42,4 @@ Sin embargo, el código no está completo y presenta errores. Se pide:
  5. Implementar timeouts
  6. [Opcional] Implementar un _supervisor_.
  7. [Opcional] Levantar con `cluster`
- 8. [Opcional] Investigar y utilizar `promisfy`.
+ 8. [Opcional] Investigar y utilizar `promisify` o en su defecto `request-promise`.
