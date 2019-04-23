@@ -4,7 +4,7 @@ Esta práctica consiste en detectar y corregir las fallas tanto arquitecturales 
 
 Existe más de una manera de encarar esta práctica, y queda a criterio de cada equipo. Por ejemplo, la misma se puede encarar con Promises o con CPS.
 
-Nota: Actualmente se esta usando las promises de Bluebird, pueden usarlas viendo si es necesario como funciona la api (http://bluebirdjs.com/docs/api-reference.html), aunque es una libreria que tiene una interfaz similar a la de ES6. Sino pueden utilizar cualquier otra libreria que prefieran.
+Nota: Actualmente se esta usando las promises de Bluebird, pueden usarlas viendo si es necesario como funciona la [api aqui](http://bluebirdjs.com/docs/api-reference.html), aunque es una libreria que tiene una interfaz similar a la de ES6. Sino pueden utilizar cualquier otra libreria que prefieran.
 
 ## Dominio
 
