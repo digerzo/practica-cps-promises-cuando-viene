@@ -1,4 +1,7 @@
-//Este es el servidor con los recorridos
+//
+// Este es el servidor con los recorridos
+//
+
 var r = require('./request_wrapper.js');
 var schedule = require('node-schedule');
 var host = 'http://localhost';
@@ -11,13 +14,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-console.log("Servidor de Recorridos. v.0.5");
-
-function make_url(host, port) {
-    return host + ':' + port;
-}
-
-//State
+// Estado (simulado)
 
 var lines = {
     1: {'line_desc': 'Linea 1', 'status': 1},
@@ -34,9 +31,16 @@ var stops = {
     9: {'line': 2, 'expected': 0}
 };
 
+
+// Rutas
+
+function make_url(host, port) {
+    return host + ':' + port;
+}
+
 app.route('/line_status').get(function (req, res) {
     var line_id = req.query.line_id;
-    
+
     var line_status = lines[line_id]['status'];
     res.json({status: line_status})
 });
@@ -60,6 +64,8 @@ app.route('/next_bus').get(function (req, res) {
 app.route('/status').get(function (req, res) {
     res.json({status: 'online'})
 });
+
+// Tareas programadas
 
 //Cada 55 segundos actualizar el estado de las lineas
 schedule.scheduleJob('*/55 * * * * *', function () {
@@ -96,11 +102,10 @@ schedule.scheduleJob('*/30 * * * * *', function () {
     console.log("Actualizacion del estado de las estaciones finalizado.")
 });
 
+// Programa Principal
 
 var server = app.listen(port, function () {
-    var suffix = 'Empezando servidor de viajes en el puerto ' + server.address().port;
-
-    console.log(suffix);
-
+    console.log("Servidor de Recorridos. v.0.5");
+    console.log('Empezando servidor de viajes en el puerto ' + server.address().port);
     return server;
 });
