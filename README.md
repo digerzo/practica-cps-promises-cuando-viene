@@ -40,6 +40,6 @@ Sin embargo, el código no está completo y presenta errores. Se pide:
  3. ¿Qué sucede si alguno de los servidores se cae?
  4. Implementar manejo de errores.
  5. Implementar timeouts
- 6. [Opcional] Implementar un _supervisor_.
- 7. [Opcional] Levantar con `cluster`
+ 6. [Opcional] Implementar un _supervisor_. [Aqui](https://www.npmjs.com/package/supervisor) se puede obtener algo de info sobre la version a usar y los links al repo y a la pagina.
+ 7. [Opcional] Levantar con `cluster`. [Aqui](https://nodejs.org/api/cluster.html) pueden ver algo de la documentacion de cluster en node.
  8. [Opcional] Investigar y utilizar `promisify` o en su defecto `request-promise`.
