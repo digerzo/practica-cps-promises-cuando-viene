@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitoreo</title>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Muli', serif;
+    }
+
+    .contenido {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .titulo {
+        margin: 2rem;
+        font-size: 4rem;
+        font-weight: bold;
+    }
+
+    .servicios {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .status {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .servicio {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 1rem;
+        text-align: center;
+        border: 3px solid black;
+        border-radius: 25px;
+        width: 20vw;
+        height: 30vh;
+    }
+
+    .up {
+        background-color: green;
+    }
+
+    .down {
+        background-color: red;
+    }
+</style>
+<script>
+    const { host } = window.location;
+    const socket = new WebSocket('ws://' + host);
+
+    socket.addEventListener('connection', console.log);
+
+    socket.addEventListener('message', ({ data }) => {
+        const { msg, type } = JSON.parse(data);
+        if ('estados' === type) {
+            msg.estados.forEach(({ servicio, status }) => {
+                actualizarEstado(servicio, status);
+            });
+        } else {
+            console.log(msg);
+        }
+    });
+
+    // Actualiza el estado en pantalla. ¡No tocar!
+    function actualizarEstado(servicio, status) {
+        const idDelServicio = servicio.toLowerCase();
+        const elemento = document.querySelector('#' + idDelServicio);
+        const [claseDelStatus, claseContrariaDelStatus] = status === 'UP' ? ['up', 'down'] : ['down', 'up'];
+        if (elemento === null) {
+            const status = document.querySelector('#status');
+            const estadoDelServicio = document.createElement('div');
+            estadoDelServicio.id = idDelServicio;
+            estadoDelServicio.classList.add('servicio', claseDelStatus);
+            const nombreDelServicio = document.createElement('span');
+            const [primerLetra, ...resto] = servicio;
+            nombreDelServicio.innerText = primerLetra.toUpperCase() + resto.join('').toLowerCase();
+            estadoDelServicio.appendChild(nombreDelServicio);
+            status.appendChild(estadoDelServicio);
+        } else {
+            elemento.classList.replace(claseContrariaDelStatus, claseDelStatus);
+        }
+    }
+</script>
+<body>
+<div class="contenido">
+    <div class="titulo">
+        Estados
+    </div>
+
+    <div class="servicios">
+        <div id="status" class="status">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
