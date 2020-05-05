@@ -2,12 +2,12 @@
 
 ## Dominio
 
-Estamos a cargo de el desarrollo y mantenimiento de un sistema que nos permite saber cual 
-es el colectivo próximo que va a pasar por mi parada.
+Estamos a cargo de el desarrollo y mantenimiento de un sistema que nos permite saber cuál 
+es el próximo colectivo de cada línea que va a pasar por mi parada.
 
-Contamos con varios servicios que se encargan de distintos concerns: `lineas`, `paradas` y `cuando-viene`. Este último es el único que va a estar de cara a los usuarios; exponiendo una API REST.
+Contamos con varios servicios que se encargan de distintos concerns: `lineas`, `paradas` y `cuando-viene`. Este último es el único que va a estar de cara a los usuarios, exponiendo una API REST.
 
-Existe un cuarto componente, `monitoreo`, que nos sirve para conocer el estado del resto de los servicios. Este expone una página web para ser visualizada por el equipo de infraestructura.
+Existe un cuarto componente, `monitoreo`, que nos sirve para conocer el estado del resto de los servicios. Éste expone una página web para ser visualizada por el equipo de infraestructura.
 La misma utiliza [websockets](https://en.wikipedia.org/wiki/WebSocket) para ser notificada ante cambios en los estados. Debería poder soportar varias pestañas abiertas. 
 
 ## Objetivo
@@ -15,7 +15,7 @@ El código no se encuentra completo y en su mayoría no maneja flujo de errores.
 
 - Completar los servidores, detectar errores de control de flujo y corregirlos.
 - Implementar manejo de errores
-- Implementar timeouts de conexion en las requests http.
+- Implementar timeouts de conexion en las requests HTTP.
 
 ## Pasos Sugeridos
 
@@ -25,9 +25,9 @@ El código no se encuentra completo y en su mayoría no maneja flujo de errores.
     * Implementar manejo de errores.
     * Implementar timeouts en las requests.
  3. Completar `monitoreo` para que las pantallas puedan ver el estado de los servicios.
-    * Qué diferencia hay entre un archivo de los servicios (ej: `paradas.js`) y el código JS del `index.html`?
-    * Qué diferencias hay entre comunicarse via requests HTTP y utilizar websockets?
+    * ¿Qué diferencia hay entre un archivo de los servicios (ej: `paradas.js`) y el código JS del `index.html`?
+    * ¿Qué diferencias hay entre comunicarse via requests HTTP y utilizar websockets?
  4. Configurar el timeout de las requests para que sea menor a la inestabilidad de la red.
     * Implementar mecanismo de retry 
         * con backoff lineal/exponencial (opcional)
- 5. Investigar [Worker Threads](https://nodejs.org/api/worker_threads.html) y aplicarlo en el sistem (opcional)
+ 5. Bonus: Investigar sobre [Worker Threads](https://nodejs.org/api/worker_threads.html) y aplicarlos en el sistema
