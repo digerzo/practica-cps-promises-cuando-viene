@@ -1,0 +1,54 @@
+{
+  "15": {
+    "funciona": true,
+    "colectivos": [
+      {
+        "patente": "aaa-123",
+        "ubicacion": 77
+      },
+      {
+        "patente": "aaa-456",
+        "ubicacion": 105
+      },
+      {
+        "patente": "aaa-789",
+        "ubicacion": 75
+      }
+    ]
+  },
+  "60": {
+    "funciona": true,
+    "colectivos": [
+      {
+        "patente": "bbb-123",
+        "ubicacion": 90
+      }
+    ]
+  },
+  "184": {
+    "funciona": true,
+    "colectivos": [
+      {
+        "patente": "ccc-123",
+        "ubicacion": 107
+      },
+      {
+        "patente": "ccc-456",
+        "ubicacion": 105
+      },
+      {
+        "patente": "ccc-789",
+        "ubicacion": 54
+      }
+    ]
+  },
+  "720": {
+    "funciona": false,
+    "colectivos": [
+      {
+        "patente": "ddd-123",
+        "ubicacion": 60
+      }
+    ]
+  }
+}
