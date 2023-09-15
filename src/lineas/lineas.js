@@ -8,7 +8,9 @@ const LINEAS = SERVICIOS.lineas;
 
 const lineasDb = {
     buscarPorLinea(linea, callback) {
-        // Implementar
+        data = fs.readFileSync('./lineas.db.json')
+        let json = JSON.parse(data)
+        return json[linea]
     }
 };
 
@@ -18,7 +20,9 @@ app.use(healthCheck);
 
 app.get('/lineas/:linea', (req, res) => {
     const linea = req.params.linea;
-    // const estadoLinea = lineasDb.buscarPorLinea(linea);    ¿Cómo seguimos?
+    const estadoLinea = lineasDb.buscarPorLinea(linea);
+    console.log('estado linea:')
+    console.log(estadoLinea)
     if (estadoLinea === undefined) {
         res.sendStatus(404);
     } else {
