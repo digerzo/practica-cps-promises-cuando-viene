@@ -2,7 +2,7 @@ function tiempoDeLlegada(ubicacionDeLaParada, colectivo) {
     return colectivo.ubicacion - ubicacionDeLaParada;
 }
 
-function colectivoMasCercano(detalleDeLaLinea, ubicacionDeLaParada) {
+function colectivoMasCercano1(detalleDeLaLinea, ubicacionDeLaParada) {
     const { linea, colectivos } = detalleDeLaLinea;
     // Dijkstra un poroto
     const tiemposDeLlegada = colectivos.map(colectivo => (tiempoDeLlegada(ubicacionDeLaParada, colectivo)));
@@ -10,5 +10,5 @@ function colectivoMasCercano(detalleDeLaLinea, ubicacionDeLaParada) {
 }
 
 module.exports = {
-    colectivoMasCercano,
+    colectivoMasCercano1,
 };
